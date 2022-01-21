@@ -1,35 +1,39 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import useAxios from '../../hooks/useAxios';
 import Product from './Product/Product';
 import CategoryAside from './CategoryAside/CategoryAsie';
 import { API } from '../../config';
 
 function ProductList() {
-  const [productInfo, setProductInfo] = useState([]);
-  const [categoriesData, setCategoriesData] = useState([]);
+  // const [productInfo, setProductInfo] = useState([]);
+  // const [categoriesData, setCategoriesData] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location);
+  const { productInfo } = useAxios(API.PRODUCTS + location.search);
+  const { categoriesData } = useAxios(API.CATEGORIES + location.search);
 
-  useEffect(() => {
-    fetch(`${API.PRODUCTS}${location.search}`, {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(data => {
-        setProductInfo(data.result);
-      });
-  }, [location.search]);
+  // useEffect(() => {
+  //   fetch(`${API.PRODUCTS}${location.search}`, {
+  //     method: 'GET',
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setProductInfo(data.result);
+  //     });
+  // }, [location.search]);
 
-  useEffect(() => {
-    fetch(`${API.CATEGORIES}${location.search}`, {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(data => {
-        setCategoriesData(data.result);
-      });
-  }, [location.search]);
+  // useEffect(() => {
+  //   fetch(`${API.CATEGORIES}${location.search}`, {
+  //     method: 'GET',
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setCategoriesData(data.result);
+  //     });
+  // }, [location.search]);
 
   const goMainCategories = clickedCategory => {
     const category_id = clickedCategory;
@@ -54,9 +58,10 @@ function ProductList() {
       </CategoryBox>
       <ProductBox>
         <ProductWrap>
-          {productInfo.map(items => {
-            return <Product items={items} key={items.id} />;
-          })}
+          {productInfo &&
+            productInfo.map(items => {
+              return <Product items={items} key={items.id} />;
+            })}
         </ProductWrap>
       </ProductBox>
     </Main>

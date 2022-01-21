@@ -1,24 +1,18 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import useAxios from '../../hooks/useAxios';
 import Product from '../ProductList/Product/Product';
 import ProductListBanner from '../ProductList/ProductListBanner';
 import MostProductCard from '../ProductList/Product/MostProductCard';
 import { API } from '../../config';
 
 function ProductList() {
-  const [productInfo, setProductInfo] = useState([]);
+  // const [productInfo, setProductInfo] = useState([]);
   const location = useLocation();
-
-  useEffect(() => {
-    fetch(`${API.PRODUCTS}${location.search}`, {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(data => {
-        setProductInfo(data.result);
-      });
-  }, [location.search]);
+  console.log(location);
+  const url = API.PRODUCTS;
+  const { productInfo, loading, error } = useAxios(url + location.search);
 
   return (
     <>
@@ -30,9 +24,10 @@ function ProductList() {
           <MoreText>More</MoreText>
         </TitleWrap>
         <ProductWrap>
-          {productInfo.map(items => {
-            return <Product items={items} key={items.id} />;
-          })}
+          {productInfo &&
+            productInfo.map(items => {
+              return <Product items={items} key={items.id} />;
+            })}
         </ProductWrap>
         <TitleWrap>
           <MainTitle>Top Rated</MainTitle>
