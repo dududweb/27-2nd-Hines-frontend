@@ -3,17 +3,10 @@ import styled from 'styled-components';
 import OrderInfo from './OrderInfo';
 import OrderClientInfo from './OrderClientInfo';
 import { API } from '../../config';
+import useAxios from '../../hooks/useAxios';
 
 function Orderlist() {
-  const [orderInfo, setOrderInfo] = useState([]);
-
-  useEffect(() => {
-    fetch(`${API.ORDERS}`, {
-      method: 'get',
-    })
-      .then(res => res.json())
-      .then(data => setOrderInfo(data));
-  }, []);
+  const { orderInfo } = useAxios(API.ORDERS);
 
   return (
     <OrderlistWrap>

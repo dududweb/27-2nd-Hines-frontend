@@ -4,25 +4,28 @@ import { Link } from 'react-router-dom';
 function CategoryAside({ categoriesData, goMainCategories, goSubCategories }) {
   return (
     <CategoryListWrap>
-      {categoriesData.map(categories => {
-        return (
-          <CategoryTitle key={categories.id} onClick={() => goMainCategories}>
-            <Link to={`?category_id=${categories.id}`}>{categories.name}</Link>
-            {categories.sub_category.map(subCategory => {
-              return (
-                <SubCategoryTitle
-                  key={subCategory.id}
-                  onClick={() => goSubCategories}
-                >
-                  <Link to={`?sub_category_id=${subCategory.id}`}>
-                    {subCategory.name}
-                  </Link>
-                </SubCategoryTitle>
-              );
-            })}
-          </CategoryTitle>
-        );
-      })}
+      {categoriesData &&
+        categoriesData.map(categories => {
+          return (
+            <CategoryTitle key={categories.id} onClick={() => goMainCategories}>
+              <Link to={`?category_id=${categories.id}`}>
+                {categories.name}
+              </Link>
+              {categories.sub_category.map(subCategory => {
+                return (
+                  <SubCategoryTitle
+                    key={subCategory.id}
+                    onClick={() => goSubCategories}
+                  >
+                    <Link to={`?sub_category_id=${subCategory.id}`}>
+                      {subCategory.name}
+                    </Link>
+                  </SubCategoryTitle>
+                );
+              })}
+            </CategoryTitle>
+          );
+        })}
     </CategoryListWrap>
   );
 }
