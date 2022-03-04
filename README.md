@@ -3,6 +3,9 @@
 ---
 
 # 프로젝트 개요
+![image](https://user-images.githubusercontent.com/91524565/156755696-1feb67bb-3937-4f01-a49c-947b280cba57.png)
+
+
 
 ## 프로젝트 기간
 
