@@ -31,8 +31,9 @@ function CategoryAside({ categoriesData, goMainCategories, goSubCategories }) {
 }
 
 export default CategoryAside;
+
 const CategoryListWrap = styled.ul`
-  border-right: 1px so]id #333;
+  border-right: 1px solid #333;
   padding-right: 20px;
 `;
 

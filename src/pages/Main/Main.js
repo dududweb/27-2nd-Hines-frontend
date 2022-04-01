@@ -10,7 +10,6 @@ import { API } from '../../config';
 function ProductList() {
   // const [productInfo, setProductInfo] = useState([]);
   const location = useLocation();
-  console.log(location);
   const url = API.PRODUCTS;
   const { productInfo, loading, error } = useAxios(url + location.search);
 
